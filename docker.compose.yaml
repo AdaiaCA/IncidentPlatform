@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  debian_python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: debian_python_container
+    volumes:
+      - .:/app  #  Monta tu carpeta de trabajo, dentro de esa ruta en el contenedor
+    stdin_open: true
+    tty: true  # Mantiene el contenedor en ejecución para usarlo como terminal
