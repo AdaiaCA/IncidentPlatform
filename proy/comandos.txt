@@ -1,0 +1,24 @@
+C:\Dev_Py\Admin_Incidentes_v0.2>django-admin startproject Admin_Incidentes
+
+C:\Dev_Py\Admin_Incidentes_v0.2>cd Admin_Incidentes
+
+C:\Dev_Py\Admin_Incidentes_v0.2\Admin_Incidentes>py manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+February 02, 2025 - 01:29:39
+Django version 5.1.5, using settings 'Admin_Incidentes.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+
+.....
+
+PS C:\Dev_Py\Admin_Incidentes_v0.2\Admin_Incidentes> python .\manage.py startapp app_web
+
+python manage.py makemigrations
+python manage.py migrate
