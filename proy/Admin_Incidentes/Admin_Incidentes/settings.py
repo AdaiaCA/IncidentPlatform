@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app_web'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,13 @@ WSGI_APPLICATION = 'Admin_Incidentes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        #Se usa el str para poder utilizarlo en windows
+        'NAME': str('BD_Insegura'), #BASE_DIR /
+        'USER': 'postgres',
+        'PASSWORD': 'Pwd_Insegura',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

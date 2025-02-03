@@ -2,3 +2,9 @@
 pip install django
 Successfully installed asgiref-3.8.1 django-5.1.5 sqlparse-0.5.3 tzdata-2025.1
 
+#Instalación del controlador de postgress
+pip install psycopg2-binary
+#Para producción:
+pip install psycopg2
+
+Successfully installed psycopg2-binary-2.9.10

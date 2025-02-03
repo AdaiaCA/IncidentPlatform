@@ -14,9 +14,25 @@ ESTADOS = [
     ("faltaEntrega", "Falta entregar"), #Se terminó de atender, pero falta generar la entrega
     
 ]
+CORREO_ERROR={
+    "invalid": "El formato del correo es inválido",
+    "unique": "Este correo ya está registrado",
+    "blank": "La dirección de correo es obligatoria",
+    "max_length": "El correo supera el límite de carácteres permitidos"
+}
+'''
+#Diccionario de apoyo para mensajes de error para la propiedad error_messages
+CADENAS_ERROR={ 
+    "blank": "El campo no puede estar vacío.",
+    "null": "Este campo no puede ser nulo.",
+    "max_length": "El campo no puede tener más de 50 caracteres.",
+    "min_length": "El campo debe tener al menos 3 caracteres.",
+    "unique": "Este campo ya está registrado. Intenta con otro.",
+}
+'''
 class Usuarios(models.Model):
     id_Usr     = models.AutoField(verbose_name="id", primary_key=True, null=False)
-    correo     = models.CharField(verbose_name="Correo", max_length=80, blank=True, null=False, default="")
+    correo     = models.EmailField(verbose_name="Correo", max_length=80, unique=True, blank=False, error_messages=CORREO_ERROR)
     password   = models.CharField(verbose_name="Contraseña", max_length=256, blank=True, null=False, default="")
     ult_login  = models.DateTimeField(verbose_name="Último login", editable=False)
     token      = models.CharField(verbose_name="Último token", max_length=256, blank=True, null=False, default="")
@@ -125,22 +141,24 @@ class IncidentesC(models.Model):
     fh_mod          = models.DateTimeField(verbose_name="Fecha modificación", editable=False, auto_now=True)
 
 class IncidentesD(models.Model):
-    id_incidente_c  = models.IntegerField(verbose_name="Id incidente", primary_key=True, null=False)
-    id_incidente_d  = models.IntegerField(verbose_name="Id Respuesta", primary_key=True, null=False)
+    id              = models.AutoField(verbose_name="id", primary_key=True, null=False)
+    id_incidente_c  = models.IntegerField(verbose_name="Id incidente", null=False)
+    id_incidente_d  = models.IntegerField(verbose_name="Id Respuesta", null=False)
     id_Pers         = models.IntegerField(verbose_name="Id personal") #Personas.id_pers
     nombre          = models.CharField(verbose_name="Titulo de la respuesta", max_length=128, blank=True, null=False, default="")
     detalle         = models.TextField(verbose_name="Contenido")
-    activo          = models.BooleanField(verbose_name="Activo", default=False)
+    interno         = models.BooleanField(verbose_name="Interno", default=False)
     fh_alta         = models.DateTimeField(verbose_name="Fecha alta", editable=False, auto_now_add=True)
     fh_mod          = models.DateTimeField(verbose_name="Fecha modificación", editable=False, auto_now=True)
 
 class Adjuntos(models.Model):
-    id_incidente_c = models.IntegerField(verbose_name="Id incidente", primary_key=True, null=False)
-    id_incidente_d = models.IntegerField(verbose_name="Id Respuesta", primary_key=True, null=False)
-    id_adjunto     = models.IntegerField(verbose_name="Id adjunto", primary_key=True, null=False)
+    id             = models.AutoField(verbose_name="id", primary_key=True, null=False)
+    id_incidente_c = models.IntegerField(verbose_name="Id incidente", null=False)
+    id_incidente_d = models.IntegerField(verbose_name="Id Respuesta", null=False)
+    id_adjunto     = models.IntegerField(verbose_name="Id adjunto", null=False)
     activo         = models.BooleanField(verbose_name="Activo", default=False)
-    id_ftp         = models.AutoField(verbose_name="id del FTP") #Archivos_Ftp.id_ftp
-    id_file_loc    = models.AutoField(verbose_name="id del archivo local") #Archivos_Locales.id_file_loc
+    id_ftp         = models.IntegerField(verbose_name="id del FTP") #Archivos_Ftp.id_ftp
+    id_file_loc    = models.IntegerField(verbose_name="id del archivo local") #Archivos_Locales.id_file_loc
     fh_alta        = models.DateTimeField(verbose_name="Fecha alta", editable=False, auto_now_add=True)
     fh_mod         = models.DateTimeField(verbose_name="Fecha modificación", editable=False, auto_now=True)
 
@@ -151,8 +169,9 @@ class Grupos(models.Model):
     fh_mod   = models.DateTimeField(verbose_name="Fecha modificación", editable=False, auto_now=True)
 
 class Grupos_Usrs(models.Model):
-    id_grupo = models.IntegerField(verbose_name="Id grupo", primary_key=True, null=False) #Grupos.id_grupo
-    id_usr   = models.IntegerField(verbose_name="id usuario", primary_key=True, null=False) #Usuarios.id
+    id = models.AutoField(verbose_name="id", primary_key=True, null=False)
+    id_grupo = models.IntegerField(verbose_name="Id grupo", null=False) #Grupos.id_grupo
+    id_usr   = models.IntegerField(verbose_name="id usuario", null=False) #Usuarios.id
 
 class Permisos(models.Model):
     id_permi = models.AutoField(verbose_name="id", primary_key=True, null=False)
@@ -161,8 +180,9 @@ class Permisos(models.Model):
     fh_mod   = models.DateTimeField(verbose_name="Fecha modificación", editable=False, auto_now=True)
 
 class Permisos_Grps(models.Model):
-    id_grupo = models.IntegerField(verbose_name="Id grupo", primary_key=True, null=False) #Grupos.id_grupo
-    id_permi = models.IntegerField(verbose_name="Id permiso", primary_key=True, null=False) #Grupos.id_permi
+    id = models.AutoField(verbose_name="id", primary_key=True, null=False)
+    id_grupo = models.IntegerField(verbose_name="Id grupo", null=False) #Grupos.id_grupo
+    id_permi = models.IntegerField(verbose_name="Id permiso", null=False) #Grupos.id_permi
     fh_alta  = models.DateTimeField(verbose_name="Fecha alta", editable=False, auto_now_add=True)
     fh_mod   = models.DateTimeField(verbose_name="Fecha modificación", editable=False, auto_now=True)
 
