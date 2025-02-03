@@ -20,5 +20,17 @@ Quit the server with CTRL-BREAK.
 
 PS C:\Dev_Py\Admin_Incidentes_v0.2\Admin_Incidentes> python .\manage.py startapp app_web
 
+#En la bd de postgres
+CREATE DATABASE "BD_Insegura"
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LOCALE_PROVIDER = 'libc'
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+#De regreso en la terminal:
 python manage.py makemigrations
+python manage.py makemigrations app_web
+
 python manage.py migrate
